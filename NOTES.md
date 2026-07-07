@@ -8,7 +8,7 @@ npm login --auth-type=web
 bun whoami
 
 # Check if the package name is available
-bun pm view <package-name>
+bun pm view svge
 
 # Review the files that will be published
 bun pm pack --dry-run
