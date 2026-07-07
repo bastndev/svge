@@ -1,7 +1,7 @@
 {
   "name": "svge",
   "version": "0.1.0",
-  "description": "SVG editor library",
+  "description": "Cross-framework SVG icon library — one source of truth, native rendering for web (Custom Element), React Native, LynxJS, and VS Code.",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -16,19 +16,39 @@
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       }
-    }
+    },
+    "./web": {
+      "import": {
+        "types": "./dist/web.d.ts",
+        "default": "./dist/web.js"
+      },
+      "require": {
+        "types": "./dist/web.d.cts",
+        "default": "./dist/web.cjs"
+      }
+    },
+    "./svg/*": "./svg/*"
   },
   "files": [
-    "dist"
+    "dist",
+    "svg"
   ],
   "sideEffects": false,
   "scripts": {
-    "build": "tsup",
-    "clean": "rm -rf dist",
+    "build:icons": "bun run scripts/build-icons.ts",
+    "build": "bun run build:icons && tsup",
+    "clean": "rm -rf dist svg src/core/icons.gen.ts",
     "prepublishOnly": "bun run build",
-    "test": "bun test/smoke.mjs"
+    "test": "bun run build && bun test/smoke.mjs"
   },
-  "keywords": [],
+  "keywords": [
+    "icons",
+    "svg",
+    "icon-library",
+    "react-native",
+    "lynxjs",
+    "web-components"
+  ],
   "author": "Gohit X (bastndev)",
   "license": "MIT",
   "homepage": "https://gohit.xyz/package/svge",

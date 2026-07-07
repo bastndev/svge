@@ -1,5 +1,7 @@
 node_modules/
 dist/
+svg/
+src/core/icons.gen.ts
 *.tsbuildinfo
 .DS_Store
 npm-debug.log*
