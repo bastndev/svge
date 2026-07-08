@@ -1,6 +1,6 @@
 {
   "name": "svghub",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Cross-framework SVG icon library — one source of truth, native rendering for web (Custom Element), React Native, LynxJS, and VS Code.",
   "type": "module",
   "main": "./dist/index.cjs",
