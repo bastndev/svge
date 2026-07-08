@@ -1,5 +1,5 @@
 {
-  "name": "svge",
+  "name": "iconix",
   "version": "0.1.0",
   "description": "Cross-framework SVG icon library — one source of truth, native rendering for web (Custom Element), React Native, LynxJS, and VS Code.",
   "type": "module",
@@ -51,13 +51,13 @@
   ],
   "author": "Gohit X (bastndev)",
   "license": "MIT",
-  "homepage": "https://gohit.xyz/package/svge",
+  "homepage": "https://gohit.xyz/package/iconix",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bastndev/svge.git"
+    "url": "git+https://github.com/bastndev/iconix.git"
   },
   "bugs": {
-    "url": "https://github.com/bastndev/svge/issues"
+    "url": "https://github.com/bastndev/iconix/issues"
   },
   "publishConfig": {
     "access": "public"

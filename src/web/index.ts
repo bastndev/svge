@@ -1,13 +1,13 @@
-import { SvgeIconElement } from './icon-element.js';
+import { IconixIconElement } from './icon-element.js';
 
-export { SvgeIconElement };
+export { IconixIconElement };
 
-const TAG_NAME = 'svge-icon';
+const TAG_NAME = 'iconix-icon';
 
 export function register(tagName: string = TAG_NAME): void {
   if (typeof customElements === 'undefined') return;
   if (!customElements.get(tagName)) {
-    customElements.define(tagName, SvgeIconElement);
+    customElements.define(tagName, IconixIconElement);
   }
 }
 
