@@ -39,11 +39,16 @@ export class SvghubIconElement extends HTMLElement {
     svg.setAttribute('viewBox', icon.viewBox);
     svg.setAttribute('width', size);
     svg.setAttribute('height', size);
-    svg.setAttribute('fill', 'none');
-    svg.setAttribute('stroke', color);
-    svg.setAttribute('stroke-width', strokeWidth);
-    svg.setAttribute('stroke-linecap', 'round');
-    svg.setAttribute('stroke-linejoin', 'round');
+    if (icon.style === 'fill') {
+      svg.setAttribute('fill', color);
+      svg.setAttribute('fill-rule', icon.fillRule);
+    } else {
+      svg.setAttribute('fill', 'none');
+      svg.setAttribute('stroke', color);
+      svg.setAttribute('stroke-width', strokeWidth);
+      svg.setAttribute('stroke-linecap', 'round');
+      svg.setAttribute('stroke-linejoin', 'round');
+    }
     svg.setAttribute('aria-hidden', 'true');
 
     for (const d of icon.paths) {

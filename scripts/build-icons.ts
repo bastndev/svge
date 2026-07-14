@@ -13,6 +13,8 @@ interface RawIcon {
   name: string;
   category: string;
   viewBox: string;
+  style: 'stroke' | 'fill';
+  fillRule: 'nonzero' | 'evenodd';
   paths: string[];
 }
 
@@ -44,12 +46,21 @@ function parseSvg(source: string, name: string, category: string): RawIcon {
     throw new Error(`Icon "${name}" has no renderable path data`);
   }
 
-  return { name, category, viewBox: viewBoxMatch[1], paths };
+  const svgTag = source.match(/<svg\b[^>]*>/)?.[0] ?? '';
+  const style = /\bfill="currentColor"/.test(svgTag) ? 'fill' : 'stroke';
+  const fillRule = /\bfill-rule="evenodd"/.test(svgTag) ? 'evenodd' : 'nonzero';
+
+  return { name, category, viewBox: viewBoxMatch[1], style, fillRule, paths };
 }
 
 function cleanSvg(icon: RawIcon): string {
   const pathTags = icon.paths.map((d) => `  <path d="${d}" />`).join('\n');
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${icon.viewBox}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">\n${pathTags}\n</svg>\n`;
+  const presentation =
+    icon.style === 'fill'
+      ? `fill="currentColor"${icon.fillRule === 'evenodd' ? ' fill-rule="evenodd"' : ''}`
+      : 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${icon.viewBox}" ${presentation}>\n${pathTags}\n</svg>\n`;
 }
 
 async function main() {
@@ -79,7 +90,7 @@ async function main() {
   const registryEntries = icons
     .map(
       (icon) =>
-        `  '${icon.name}': { name: '${icon.name}', category: '${icon.category}', viewBox: '${icon.viewBox}', paths: [${icon.paths
+        `  '${icon.name}': { name: '${icon.name}', category: '${icon.category}', viewBox: '${icon.viewBox}', style: '${icon.style}', fillRule: '${icon.fillRule}', paths: [${icon.paths
           .map((d) => JSON.stringify(d))
           .join(', ')}] }`,
     )

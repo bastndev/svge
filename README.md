@@ -123,8 +123,8 @@ The `<svghub-icon>` custom element is registered automatically when you import `
 | -------------- | -------------- | ------------------------------------------------------------- |
 | `name`         | —              | Icon identifier (e.g. `github`, `x`, `instagram`).            |
 | `size`         | `24`           | Width and height of the rendered SVG.                         |
-| `color`        | `currentColor` | Stroke color.                                                 |
-| `stroke-width` | `2`            | Stroke width.                                                 |
+| `color`        | `currentColor` | Stroke or fill color.                                         |
+| `stroke-width` | `2`            | Stroke width for outline icons.                               |
 
 ### Manual registration
 
@@ -194,17 +194,28 @@ import 'svghub/web';
 
 ## 🗂️ Available icons
 
-All icons are grouped by category. The current set lives under `icons/social/`:
+All icons are grouped by category. The current set lives under `icons/social/`
+and `icons/bottom-bar/`:
 
-| Icon        | Name          | Category |
-| ----------- | ------------- | -------- |
-| Facebook    | `facebook`    | social   |
-| GitHub      | `github`      | social   |
-| Instagram   | `instagram`   | social   |
-| LinkedIn    | `linkedin`    | social   |
-| TikTok      | `tiktok`      | social   |
-| X (Twitter) | `x`           | social   |
-| YouTube     | `youtube`     | social   |
+| Icon            | Name                | Category   |
+| --------------- | ------------------- | ---------- |
+| Facebook        | `facebook`          | social     |
+| GitHub          | `github`            | social     |
+| Instagram       | `instagram`         | social     |
+| LinkedIn        | `linkedin`          | social     |
+| TikTok          | `tiktok`            | social     |
+| X (Twitter)     | `x`                 | social     |
+| YouTube         | `youtube`           | social     |
+| -         | -           | -     |
+| Home outline    | `home-outline`      | bottom-bar |
+| Home solid      | `home-solid`        | bottom-bar |
+| Message outline | `message-outline`   | bottom-bar |
+| Message solid   | `message-solid`     | bottom-bar |
+| Plus            | `plus`              | bottom-bar |
+| User outline    | `user-outline`      | bottom-bar |
+| User solid      | `user-solid`        | bottom-bar |
+| Wallet outline  | `wallet-outline`    | bottom-bar |
+| Wallet solid    | `wallet-solid`      | bottom-bar |
 
 > New categories are created automatically by adding a subfolder under `icons/`.
 
@@ -258,7 +269,9 @@ svghub/
 3. Run `bun run build`.
 4. Verify the output in `src/core/icons.gen.ts` and `svg/`.
 
-Only the `viewBox` and `<path d="...">` values are read from the source file. Stroke, fill, and other presentation attributes are normalized at build time.
+The generator reads `viewBox`, `<path d="...">`, and root-level fill mode. Outline
+presentation is normalized, while `fill="currentColor"` and an optional
+`fill-rule="evenodd"` preserve solid icons.
 
 See [`icons/icons.md`](./icons/icons.md) for the full contributor guide.
 

@@ -22,18 +22,22 @@ if two categories both contain e.g. `home.svg`.
 
 ## What the generator normalizes for you (don't worry about these)
 
-Only two things are ever read out of your source file: the `viewBox`
-attribute and each `<path d="...">` value. Everything else you put on the
-`<svg>` or `<path>` tags — `stroke`, `stroke-width`, `fill`, `stroke-linecap`
-— is discarded and replaced with a fixed style at build time:
+Four things are read out of your source file: the `viewBox` attribute, each
+`<path d="...">` value, whether the root `<svg>` uses `fill="currentColor"`,
+and an optional root `fill-rule="evenodd"`. Path-level presentation attributes
+are discarded.
+
+Outline icons use the fixed style:
 
 ```
 fill="none" stroke="currentColor" stroke-width="2"
 stroke-linecap="round" stroke-linejoin="round"
 ```
 
-So stroke width/color/cap style can never drift between icons — don't spend
-time matching those by hand.
+Solid icons must set `fill="currentColor"` on the root `<svg>` and are emitted
+without a stroke. If their geometry depends on even-odd cutouts, set
+`fill-rule="evenodd"` there too. This preserves filled silhouettes while stroke
+width, color, and cap style remain consistent across outline icons.
 
 The generator also strips the standard Tabler "canvas bounds" helper path
 (`<path d="M0 0h24v24H0z" .../>`) if present. If your source tool doesn't
